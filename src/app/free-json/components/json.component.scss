@@ -1,0 +1,54 @@
+ul {
+  list-style: none;
+  min-width: 400px;
+}
+
+.tree-node {
+  padding: 0;
+  border: 1px solid #eef1f4;
+  background: #f7f9ff;
+  color: #7c9eb2;
+  margin: 3px 0;
+  text-transform: capitalize;
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+
+  i {
+    width: 15px;
+    height: 15px;
+    margin: 10px 3px;
+  }
+}
+.tree-node.move {
+  cursor: move;
+}
+
+.clickable {
+  cursor: pointer;
+}
+.no-action {
+  color: transparent;
+}
+.edit-actions {
+  border-left: 1px solid #eef1f4;
+  float: right;
+}
+.drag-over {
+  background-color: #7c9eb2;
+  color: #fff;
+}
+.fa {
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+.fa-plus-square {
+  color:green;
+}
+
+.fa-minus-circle {
+  color:red;
+}

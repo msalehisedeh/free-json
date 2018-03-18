@@ -1,0 +1,30 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+</div>
+
+<free-json [root]="tree" 
+          [save]="save"
+          [reasoning]="decisionMakingResoning"
+          [reasoningCodes]="decisionMakingCodes"
+          (onchange)="objectChanged($event)"
+          (onpublish)="getLatest($event)" ></free-json>
+
+<button (click)="saveChanges()" class="bt bt-primary">Save Changes</button>
+
+<select *ngIf="dataSet.length > 1" (change)="resetTo($event)">
+  <option *ngFor="let x of dataSet;let i = index" [selected]="selectedIndex === i ? true : null" >
+    Version {{x.version}}
+  </option>
+</select>
+<button *ngIf="this.dataSet.length > 1" (click)="delete()" class="bt bt-primary">Delete Selected Version</button>
+          
+<differentiate 
+          [leftSideObject]="leftJSONtree" 
+          [rightSideObject]="rightJSONtree"></differentiate>
+
+
+<div class="json-view" [innerHTML]="tree | json"></div>
+<div class="json-view" [innerHTML]="decisionMakingResoning | json"></div>
