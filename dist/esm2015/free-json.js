@@ -374,7 +374,7 @@ class FreeJsonComponent {
      * @return {?}
      */
     dragEnabled(event) {
-        return !event.medium.isRoot;
+        return !event.medium.isRoot && (event.medium.name.length || event.medium.value.length);
     }
     /**
      * @param {?} event
@@ -435,12 +435,10 @@ class FreeJsonComponent {
             }
             if (destinationNode.type === NodeType.literal) {
                 destinationNode.type = NodeType.json;
-                //        destinationNode.name= "name";
                 destinationNode.value = "";
             }
             else if (destinationNode.type === NodeType.pair) {
                 destinationNode.type = NodeType.json;
-                //        destinationNode.value= "";
             }
             else if (destinationNode.type === NodeType.array) {
                 if (destinationNode.parent === NodeType.array && sourceNode.type === NodeType.pair) {
@@ -451,6 +449,7 @@ class FreeJsonComponent {
             const /** @type {?} */ i = sourceNode.parentNode.children.indexOf(sourceNode);
             sourceNode.parentNode.children.splice(i, 1);
             sourceNode.parentNode = destinationNode;
+            this.changePerformed({});
         }
     }
     /**
@@ -467,9 +466,20 @@ class FreeJsonComponent {
         const /** @type {?} */ p = grandParent.children.indexOf(parent);
         parent.children.splice(i, 1);
         if (parent.children.length === 0) {
-            parent.type = NodeType.pair;
+            if (!parent.name.length && !parent.value.length) {
+                grandParent.children.splice(p, 1);
+                grandParent.children.splice(p, 0, child);
+            }
+            else {
+                parent.type = NodeType.pair;
+                grandParent.children.splice(p + 1, 0, child);
+            }
         }
-        grandParent.children.splice(p + 1, 0, child);
+        else {
+            grandParent.children.splice(p + 1, 0, child);
+        }
+        child.parentNode = grandParent;
+        this.changePerformed({});
     }
     /**
      * @return {?}
@@ -580,7 +590,7 @@ FreeJsonComponent.decorators = [
         class='tree-node'
         [id] = "child.id"
         [medium]="child"
-        [class.move]="!child.isRoot"
+        [class.move]="!child.isRoot && (child.name.length || child.value.length)"
         (click)="toggle($event, child)"
         (onDrop)='onDrop($event)'>
       <i  class='clickable fa fa-chevron-down'
@@ -632,7 +642,7 @@ FreeJsonComponent.decorators = [
           title="Add New Child"
           (keydown)='keyadd($event, child)'
           (click)='addNewNode($event, child)'></i>
-      <i *ngIf="!child.isRoot && child.parentNode.parentNode"
+      <i *ngIf="!child.isRoot && child.parentNode.parentNode && (child.name.length || child.value.length)"
           class="clickable fa pull-right fa-angle-double-left"
           tabindex="0"
           title="Move to {{child.parentNode.parentNode.name}}"

@@ -259,7 +259,7 @@ export class FreeJsonComponent implements OnInit {
   }
 
 	dragEnabled(event: DragEvent) {
-		return !event.medium.isRoot;
+		return !event.medium.isRoot && (event.medium.name.length || event.medium.value.length);
 	}
 	dropEnabled(event: DropEvent) {
 		return !event.destination.medium.isRoot;
@@ -307,11 +307,9 @@ export class FreeJsonComponent implements OnInit {
       }    
       if (destinationNode.type === NodeType.literal) {
         destinationNode.type = NodeType.json;
-//        destinationNode.name= "name";
         destinationNode.value= "";
       } else if (destinationNode.type === NodeType.pair) {
         destinationNode.type = NodeType.json;
-//        destinationNode.value= "";
       } else if (destinationNode.type === NodeType.array) {
         if (destinationNode.parent === NodeType.array && sourceNode.type === NodeType.pair) {
           sourceNode.type = NodeType.json;
@@ -322,6 +320,7 @@ export class FreeJsonComponent implements OnInit {
       const i = sourceNode.parentNode.children.indexOf(sourceNode);
       sourceNode.parentNode.children.splice(i, 1);
       sourceNode.parentNode = destinationNode;
+      this.changePerformed({});
     }
   }
 
@@ -337,9 +336,18 @@ export class FreeJsonComponent implements OnInit {
     parent.children.splice(i, 1);
 
     if (parent.children.length === 0) {
-      parent.type = NodeType.pair;
+      if (!parent.name.length && !parent.value.length) {
+        grandParent.children.splice(p, 1);
+        grandParent.children.splice(p, 0, child);
+      } else {
+        parent.type = NodeType.pair;
+        grandParent.children.splice(p + 1, 0, child);
+      }
+    } else {
+      grandParent.children.splice(p + 1, 0, child);
     }
-    grandParent.children.splice(p + 1, 0, child);
+    child.parentNode = grandParent;
+    this.changePerformed({});
   }
 
   getFilteredText(){

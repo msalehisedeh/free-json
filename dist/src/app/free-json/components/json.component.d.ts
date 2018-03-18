@@ -22,7 +22,7 @@ export declare class FreeJsonComponent implements OnInit {
     deleteNode(event: any, node: any): void;
     hasChevronDown(child: any): any;
     hasChevronRight(child: any): boolean;
-    dragEnabled(event: DragEvent): boolean;
+    dragEnabled(event: DragEvent): any;
     dropEnabled(event: DropEvent): boolean;
     onDragStart(event: any): void;
     onDragEnd(event: DropEvent): void;

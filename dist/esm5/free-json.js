@@ -237,7 +237,7 @@ var FreeJsonComponent = /** @class */ (function () {
         return child && child.children && child.children.length != 0 && !child.expanded;
     };
     FreeJsonComponent.prototype.dragEnabled = function (event) {
-        return !event.medium.isRoot;
+        return !event.medium.isRoot && (event.medium.name.length || event.medium.value.length);
     };
     FreeJsonComponent.prototype.dropEnabled = function (event) {
         return !event.destination.medium.isRoot;
@@ -280,6 +280,7 @@ var FreeJsonComponent = /** @class */ (function () {
             var i = sourceNode.parentNode.children.indexOf(sourceNode);
             sourceNode.parentNode.children.splice(i, 1);
             sourceNode.parentNode = destinationNode;
+            this.changePerformed({});
         }
     };
     FreeJsonComponent.prototype.toGrandParent = function (event, child) {
@@ -291,9 +292,20 @@ var FreeJsonComponent = /** @class */ (function () {
         var p = grandParent.children.indexOf(parent);
         parent.children.splice(i, 1);
         if (parent.children.length === 0) {
-            parent.type = NodeType.pair;
+            if (!parent.name.length && !parent.value.length) {
+                grandParent.children.splice(p, 1);
+                grandParent.children.splice(p, 0, child);
+            }
+            else {
+                parent.type = NodeType.pair;
+                grandParent.children.splice(p + 1, 0, child);
+            }
         }
-        grandParent.children.splice(p + 1, 0, child);
+        else {
+            grandParent.children.splice(p + 1, 0, child);
+        }
+        child.parentNode = grandParent;
+        this.changePerformed({});
     };
     FreeJsonComponent.prototype.getFilteredText = function () {
         this.manager.getFilteredText();
@@ -353,7 +365,7 @@ var FreeJsonComponent = /** @class */ (function () {
 FreeJsonComponent.decorators = [
     { type: Component, args: [{
                 selector: 'free-json',
-                template: "<ul>\n  <li  *ngFor=\"let child of transformedData | nodeSearch\"\n        [dragEnabled]=\"dragEnabled.bind(this)\"\n        [medium]=\"child\"\n        (onDragEnd)='onDragEnd($event)'\n        (onDragStart)='onDragStart($event)'>\n    <div [dropEnabled]=\"dropEnabled.bind(this)\"\n        class='tree-node'\n        [id] = \"child.id\"\n        [medium]=\"child\"\n        [class.move]=\"!child.isRoot\"\n        (click)=\"toggle($event, child)\"\n        (onDrop)='onDrop($event)'>\n      <i  class='clickable fa fa-chevron-down'\n          tabindex=\"0\"\n          title=\"Collapse {{child.name}}\"\n          *ngIf='hasChevronDown(child)'\n          (keydown)='keydown($event, child)'\n          (click)='toggle($event, child)'></i>\n      <i  class='clickable fa fa-chevron-right'\n          tabindex=\"0\"\n          title=\"Expand {{child.name}}\"\n          *ngIf='hasChevronRight(child)'\n          (keydown)='keydown($event, child)'\n          (click)='toggle($event, child)'></i>\n      <i  class='fa fa-quote-right'\n          arria-hidden=\"true\"\n          *ngIf='child.type === 1'></i>\n          <i  class='fa fa-random'\n          arria-hidden=\"true\"\n          *ngIf='child.type === 2'></i>\n      <i  class='fa no-action fa-chevron-right'\n          arria-hidden=\"true\"\n          *ngIf='child.type === 4 && child.children.length == 0'></i>\n      <json-label\n            (onchange)=\"changePerformed($event)\"\n            [node]=\"child\"></json-label>\n      <span class=\"edit-actions\">\n      <i *ngIf=\"!child.isRoot\"\n          class=\"clickable fa pull-right fa-times\"\n          tabindex=\"0\"\n          title=\"Delete {{child.name}}\"\n          (click)='deleteNode($event, child)'\n          (keydown)='keydelete($event, child)'></i>\n      <i *ngIf=\"transformedData.length > 1 && !child.isRoot\"\n          class=\"clickable fa pull-right fa-angle-double-up\"\n          tabindex=\"0\"\n          title=\"Move up {{child.name}}\"\n          (click)='moveNode($event, child, true)'\n          (keydown)='keymove($event, child, true)'></i>\n      <i *ngIf=\"transformedData.length > 1 && !child.isRoot\"\n          class=\"clickable fa pull-right fa-angle-double-down\"\n          tabindex=\"0\"\n          title=\"Move down {{child.name}}\"\n          (click)='moveNode($event, child, false)'\n          (keydown)='keymove($event, child, false)'></i>\n      <i *ngIf=\"canAddNode(child)\"\n          class=\"clickable fa pull-right fa-plus\"\n          tabindex=\"0\"\n          title=\"Add New Child\"\n          (keydown)='keyadd($event, child)'\n          (click)='addNewNode($event, child)'></i>\n      <i *ngIf=\"!child.isRoot && child.parentNode.parentNode\"\n          class=\"clickable fa pull-right fa-angle-double-left\"\n          tabindex=\"0\"\n          title=\"Move to {{child.parentNode.parentNode.name}}\"\n          (click)='toGrandParent($event, child)'\n          (keydown)='keytoGrandParent($event, child)'></i>\n      </span>\n    </div>\n    <div *ngIf=\"child.expanded\">\n      <free-json\n            (onchange)=\"changePerformed($event)\"\n            [reasoning]=\"reasoning\"\n            [reasoningCodes]=\"reasoningCodes\"\n            [transformedData]='child.children'></free-json>\n    </div>\n  </li>\n</ul>\n",
+                template: "<ul>\n  <li  *ngFor=\"let child of transformedData | nodeSearch\"\n        [dragEnabled]=\"dragEnabled.bind(this)\"\n        [medium]=\"child\"\n        (onDragEnd)='onDragEnd($event)'\n        (onDragStart)='onDragStart($event)'>\n    <div [dropEnabled]=\"dropEnabled.bind(this)\"\n        class='tree-node'\n        [id] = \"child.id\"\n        [medium]=\"child\"\n        [class.move]=\"!child.isRoot && (child.name.length || child.value.length)\"\n        (click)=\"toggle($event, child)\"\n        (onDrop)='onDrop($event)'>\n      <i  class='clickable fa fa-chevron-down'\n          tabindex=\"0\"\n          title=\"Collapse {{child.name}}\"\n          *ngIf='hasChevronDown(child)'\n          (keydown)='keydown($event, child)'\n          (click)='toggle($event, child)'></i>\n      <i  class='clickable fa fa-chevron-right'\n          tabindex=\"0\"\n          title=\"Expand {{child.name}}\"\n          *ngIf='hasChevronRight(child)'\n          (keydown)='keydown($event, child)'\n          (click)='toggle($event, child)'></i>\n      <i  class='fa fa-quote-right'\n          arria-hidden=\"true\"\n          *ngIf='child.type === 1'></i>\n          <i  class='fa fa-random'\n          arria-hidden=\"true\"\n          *ngIf='child.type === 2'></i>\n      <i  class='fa no-action fa-chevron-right'\n          arria-hidden=\"true\"\n          *ngIf='child.type === 4 && child.children.length == 0'></i>\n      <json-label\n            (onchange)=\"changePerformed($event)\"\n            [node]=\"child\"></json-label>\n      <span class=\"edit-actions\">\n      <i *ngIf=\"!child.isRoot\"\n          class=\"clickable fa pull-right fa-times\"\n          tabindex=\"0\"\n          title=\"Delete {{child.name}}\"\n          (click)='deleteNode($event, child)'\n          (keydown)='keydelete($event, child)'></i>\n      <i *ngIf=\"transformedData.length > 1 && !child.isRoot\"\n          class=\"clickable fa pull-right fa-angle-double-up\"\n          tabindex=\"0\"\n          title=\"Move up {{child.name}}\"\n          (click)='moveNode($event, child, true)'\n          (keydown)='keymove($event, child, true)'></i>\n      <i *ngIf=\"transformedData.length > 1 && !child.isRoot\"\n          class=\"clickable fa pull-right fa-angle-double-down\"\n          tabindex=\"0\"\n          title=\"Move down {{child.name}}\"\n          (click)='moveNode($event, child, false)'\n          (keydown)='keymove($event, child, false)'></i>\n      <i *ngIf=\"canAddNode(child)\"\n          class=\"clickable fa pull-right fa-plus\"\n          tabindex=\"0\"\n          title=\"Add New Child\"\n          (keydown)='keyadd($event, child)'\n          (click)='addNewNode($event, child)'></i>\n      <i *ngIf=\"!child.isRoot && child.parentNode.parentNode && (child.name.length || child.value.length)\"\n          class=\"clickable fa pull-right fa-angle-double-left\"\n          tabindex=\"0\"\n          title=\"Move to {{child.parentNode.parentNode.name}}\"\n          (click)='toGrandParent($event, child)'\n          (keydown)='keytoGrandParent($event, child)'></i>\n      </span>\n    </div>\n    <div *ngIf=\"child.expanded\">\n      <free-json\n            (onchange)=\"changePerformed($event)\"\n            [reasoning]=\"reasoning\"\n            [reasoningCodes]=\"reasoningCodes\"\n            [transformedData]='child.children'></free-json>\n    </div>\n  </li>\n</ul>\n",
                 styles: ["ul{list-style:none;min-width:400px}.tree-node{padding:0;border:1px solid #eef1f4;background:#f7f9ff;color:#7c9eb2;margin:3px 0;text-transform:capitalize;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.tree-node i{width:15px;height:15px;margin:10px 3px}.tree-node.move{cursor:move}.clickable{cursor:pointer}.no-action{color:transparent}.edit-actions{border-left:1px solid #eef1f4;float:right}.drag-over{background-color:#7c9eb2;color:#fff}.fa{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.fa-plus-square{color:green}.fa-minus-circle{color:red}"],
             },] },
 ];

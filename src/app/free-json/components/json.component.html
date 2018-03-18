@@ -8,7 +8,7 @@
         class='tree-node'
         [id] = "child.id"
         [medium]="child"
-        [class.move]="!child.isRoot"
+        [class.move]="!child.isRoot && (child.name.length || child.value.length)"
         (click)="toggle($event, child)"
         (onDrop)='onDrop($event)'>
       <i  class='clickable fa fa-chevron-down' 
@@ -60,7 +60,7 @@
           title="Add New Child"
           (keydown)='keyadd($event, child)'
           (click)='addNewNode($event, child)'></i>
-      <i *ngIf="!child.isRoot && child.parentNode.parentNode"
+      <i *ngIf="!child.isRoot && child.parentNode.parentNode && (child.name.length || child.value.length)"
           class="clickable fa pull-right fa-angle-double-left" 
           tabindex="0"
           title="Move to {{child.parentNode.parentNode.name}}"
