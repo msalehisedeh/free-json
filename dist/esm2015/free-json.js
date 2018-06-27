@@ -706,6 +706,9 @@ FreeJsonSearchField.decorators = [
 FreeJsonSearchField.ctorParameters = () => [
     { type: NodeManager, },
 ];
+FreeJsonSearchField.propDecorators = {
+    "val": [{ type: Input, args: ["val",] },],
+};
 
 /**
  * @fileoverview added by tsickle

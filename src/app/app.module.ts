@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HttpModule  } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -11,7 +12,8 @@ import { FreeJsonModule } from './free-json/free-json.module';
     AppComponent
   ],
   imports: [
-    HttpModule ,
+    HttpModule,
+	CommonModule,
     FreeJsonModule
   ],
   providers: [

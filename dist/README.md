@@ -8,6 +8,10 @@ This library provides Angular 4 components that enables you to create / modify J
 
 [Live Demo](https://free-json.stackblitz.io)  | [Source code](https://github.com/msalehisedeh/free-json) | [Comments/Requests](https://github.com/msalehisedeh/free-json/issues)
 
+# Version 1.0.0
+Compiled with AOT option and resolved issues. 
+
+
 # Version 0.0.2
 ```
 DEPENDENCIES: 

@@ -444,6 +444,9 @@ FreeJsonSearchField.decorators = [
 FreeJsonSearchField.ctorParameters = function () { return [
     { type: NodeManager, },
 ]; };
+FreeJsonSearchField.propDecorators = {
+    "val": [{ type: core.Input, args: ["val",] },],
+};
 var FreeJsonLabel = /** @class */ (function () {
     function FreeJsonLabel(renderer) {
         this.renderer = renderer;

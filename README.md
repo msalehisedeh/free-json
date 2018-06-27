@@ -6,7 +6,11 @@ Have you ever wanted to have a way of generating and manipulating a complex JSON
 
 This library provides Angular 4 components that enables you to create / modify JSON structures through drag/drop, or click/edit just by adding FreeJsonModule into your AppModule.
 
-[Live Demo](https://free-json.stackblitz.io)  | [Source code](https://github.com/msalehisedeh/free-json)
+[Live Demo](https://free-json.stackblitz.io)  | [Source code](https://github.com/msalehisedeh/free-json) | [Comments/Requests](https://github.com/msalehisedeh/free-json/issues)
+
+# Version 1.0.0
+Compiled with AOT option and resolved issues. 
+
 
 # Version 0.0.2
 ```

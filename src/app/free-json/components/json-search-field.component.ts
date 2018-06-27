@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NodeManager } from '../injectables/node-manager';
 
 @Component({ 
@@ -6,6 +6,9 @@ import { NodeManager } from '../injectables/node-manager';
   template:`<input type='text' [(ngModel)]='val' (ngModelChange)='filter(val)'>`
 })
 export class FreeJsonSearchField{
+  @Input("val")
+  val: string;
+  
   constructor(
     private manager: NodeManager
   ) {}
