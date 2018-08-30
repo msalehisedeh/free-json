@@ -6,9 +6,15 @@ Have you ever wanted to have a way of generating and manipulating a complex JSON
 
 This library provides Angular 4 components that enables you to create / modify JSON structures through drag/drop, or click/edit just by adding FreeJsonModule into your AppModule.
 
-**NOTE:** Starting with version 1.1.0 this library is compatible with Angular 6+.
+**NOTE:** If your project still is angular 2, 4, or 5; please luck-down your version reference to flexible table to 1.1.1 version by removing ^ from the version dependency in your package json. Otherwise for Angular 6+, please use 1.1.2 version or higher.
 
 [Live Demo](https://free-json.stackblitz.io)  | [Source code](https://github.com/msalehisedeh/free-json/tree/master/src/app) | [Comments/Requests](https://github.com/msalehisedeh/free-json/issues)
+
+# Version 1.1.2
+rolling to angular 6+ after fixing the dependency issue.
+
+# Version 1.1.1
+Temporary roll-back to angular 5. I forgot to luck-down the dependencies for angular 5 before upgrading to angular 6. this will cause problem if you are still using angular 5. 
 
 # Version 1.1.0
 Updated libraries to become compatible with Angular 6+. 
