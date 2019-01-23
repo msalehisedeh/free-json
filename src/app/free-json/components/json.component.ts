@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DropEvent, DragEvent } from 'drag-enabled';
+import { DropEvent, DragEvent } from '@sedeh/drag-enabled';
 
 import { NodeManager } from '../injectables/node-manager';
 import { FreeJsonSearch } from '../pipes/json-search';

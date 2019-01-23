@@ -1,5 +1,5 @@
 import { OnInit, EventEmitter } from '@angular/core';
-import { DropEvent, DragEvent } from 'drag-enabled';
+import { DropEvent, DragEvent } from '@sedeh/drag-enabled';
 import { NodeManager } from '../injectables/node-manager';
 import { Node, Reasoning } from '../interfaces/node.interface';
 export declare class FreeJsonComponent implements OnInit {

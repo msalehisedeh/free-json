@@ -2,7 +2,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { DragDropModule } from 'drag-enabled';
+import { DragDropModule } from '@sedeh/drag-enabled';
+
 import { NodeManager } from './injectables/node-manager';
 import { FreeJsonSearchField } from './components/json-search-field.component';
 import { FreeJsonComponent } from './components/json.component';

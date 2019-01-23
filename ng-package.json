@@ -1,13 +1,13 @@
 {
   "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
   "lib": {
-    "entryFile": "public_api.ts"
+    "entryFile": "public_api.ts",
+	"umdModuleIds": {
+      "@sedeh/drag-enabled": "drag-enabled"
+    }
   },
   "whitelistedNonPeerDependencies": [
-    "angular",
-    "zone",
     "font-awesome",
-    "drag-enabled",
-    "core-js"
+    "drag-enabled"
   ]
 }
