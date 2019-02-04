@@ -1,22 +1,23 @@
 {
   "name": "@sedeh/free-json",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "license": "MIT",
   "private": false,
   "keywords": [
     "angular 6+",
     "json",
-    "json-editor",
+    "json editor",
     "editor",
-    "json-schema",
     "schema",
-    "drag",
-    "drop",
-    "viewer"
+    "json schema",
+    "schema editor",
+    "drag drop editor",
+    "viewer",
+    "json viewer"
   ],
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "@sedeh/drag-enabled": "^2.0.1",
+    "@sedeh/drag-enabled": "^2.1.0",
     "tslib": "^1.9.0"
   },
   "devDependencies": {

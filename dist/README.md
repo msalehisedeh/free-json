@@ -19,7 +19,7 @@ MODULE:
 		FreeJsonModule
 
 DEPENDENCIES: 
-    "@sedeh/drag-enabled": "^2.0.1",
+    "@sedeh/drag-enabled": "^2.1.0",
     "font-awesome": "^4.7.0",
 ```
 
@@ -80,6 +80,7 @@ myJSONtree = {
 
 | Version  |Description                                                                                                                                  |
 |----------|---------------------------------------------------------------------------------------------------------------------------------------------|
+|1.2.2     |updated dependencies to fix IE drag/drop problem.                                                                                            |
 |1.2.1     |updated dependencies.                                                                                                                        |
 |1.2.0     |It was brought to my attention that some users have trouble using my components in their angular 6 environment. Since I had only updated few dependencies when moved to Angular 6, I am thinking dependencies are causing issues. So, for this release, I am updating all dependencies to what Angular 6 applications are expecting to have. Please let me know if this is fixing or not fixing any issues you are facing. |
 |1.1.2     |rolling to angular 6+ after fixing the dependency issue.                                                                                     |
