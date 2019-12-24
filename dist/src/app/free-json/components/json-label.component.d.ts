@@ -8,7 +8,7 @@ export declare class FreeJsonLabel {
     nameEditor: any;
     valueEditor: any;
     node: Node;
-    onchange: EventEmitter<{}>;
+    onchange: EventEmitter<any>;
     nameLabelKeydown(event: any): void;
     valueLabelKeydown(event: any): void;
     clickName(event: any): void;

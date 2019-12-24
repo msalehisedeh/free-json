@@ -2,7 +2,7 @@ export declare enum NodeType {
     literal = 1,
     pair = 2,
     json = 3,
-    array = 4,
+    array = 4
 }
 export interface Node {
     id: number;
@@ -19,7 +19,7 @@ export declare enum ActionType {
     add = 1,
     remove = 2,
     move = 3,
-    modified = 4,
+    modified = 4
 }
 export interface Reasoning {
     code: string;

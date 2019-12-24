@@ -10,12 +10,12 @@ export declare class FreeJsonComponent implements OnInit {
     reasoningCodes: string[];
     root: Node;
     save: boolean;
-    onpublish: EventEmitter<{}>;
-    onchange: EventEmitter<{}>;
+    onpublish: EventEmitter<any>;
+    onchange: EventEmitter<any>;
     expanded: Boolean;
     constructor(manager: NodeManager);
-    private transformedInternalStructureBackToNode(root, parent);
-    private transformNodeToInternalStruction(node, parent);
+    private transformedInternalStructureBackToNode;
+    private transformNodeToInternalStruction;
     ngOnInit(): void;
     addNewNode(event: any, node: any): void;
     moveNode(event: any, node: any, moveUp: any): void;

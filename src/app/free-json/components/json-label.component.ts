@@ -16,10 +16,10 @@ export class FreeJsonLabel {
 
   }
 
-  @ViewChild("nameEditor")
+  @ViewChild("nameEditor", {static: false})
   nameEditor;
 
-  @ViewChild("valueEditor")
+  @ViewChild("valueEditor", {static: false})
   valueEditor;
 
   @Input()
