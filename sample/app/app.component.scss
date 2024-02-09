@@ -1,0 +1,51 @@
+.json-view {
+    display: flex;
+    width: 100%;
+    & > fieldset {
+        max-height: 222px;
+        min-height: 222px;
+        font-family: monospace;
+        border-radius: 5px;
+        background-color: #eee;
+        white-space: pre;
+        unicode-bidi: embed;
+        padding: 5px;
+        overflow: auto;
+        border: 1px solid #888;
+        flex: 1;
+    }
+}
+.labels {
+    display: flex;
+    background-color: darkgray;
+    color: white;
+    span {
+        width: 50%;
+    }
+}
+.selected {
+    font-weight: bold;
+    color: red;
+}
+.pick-points {
+    margin: 16px auto 8px auto;
+    border: 2px groove rgba(0, 0, 0, 0.1);
+    height: 46px;
+}
+.resources {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #551234;
+    font-weight: bold;
+}
+.controls {
+    display: flex;
+    flex-direction: column;
+    .saver {
+        width: fit-content;
+        align-self: end;
+    }
+}
+.wrapper {
+    margin-top: 10px;
+}

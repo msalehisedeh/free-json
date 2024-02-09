@@ -1,0 +1,27 @@
+{
+  "name": "@sedeh/free-json",
+  "version": "3.0.0",
+  "peerDependencies": {
+    "@angular/common": "^15.2.0",
+    "@angular/core": "^15.2.0",
+    "@sedeh/differentiate": "^3.3.3",
+    "@sedeh/drag-enabled": "^4.3.1",
+    "font-awesome": "^4.7.0"
+  },
+  "keywords": [
+    "angular 6+",
+    "json",
+    "json editor",
+    "editor",
+    "schema",
+    "json schema",
+    "schema editor",
+    "drag drop editor",
+    "viewer",
+    "json viewer"
+  ],
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

@@ -1,0 +1,31 @@
+<span *ngIf="editName && node.name !=='Root' && node.value !=='Object'">
+    <input #nameEditor
+        type='text' 
+        id="editName"
+        placeholder="Name"
+        (blur)="editName = blur(editName)" 
+        [(ngModel)]='node.name'>
+</span>
+<span *ngIf='!editName && node.type !== literalType'
+    class='locked name' 
+    tabindex='0' 
+    (keydown)='nameLabelKeydown($event)'
+    (click)="clickName($event)"
+    [innerHTML]="node.name.length ? node.name : '&nbsp;'">
+</span>
+<span *ngIf="editValue && node.name !=='Root' && node.value !=='Object'">
+    <input #valueEditor
+        type='text' 
+        id="editValue"
+        placeholder="Value"
+        (blur)="editValue = blur(editValue)" 
+        [(ngModel)]='node.value'>
+</span>
+<span *ngIf='!editValue && (node.type === pairType || node.type === literalType) && node.value!=null'
+    class='locked' 
+    [class.name]="node.type === arrayType"
+    tabindex='0' 
+    (keydown)='valueLabelKeydown($event)'
+    (click)="clickValue($event)"
+    [innerHTML]="node.value.length ? node.value : '&nbsp;'">
+</span>

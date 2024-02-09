@@ -1,0 +1,12 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/free-json",
+  "allowedNonPeerDependencies": [
+    "@sedeh/differentiate",
+    "@sedeh/drag-enabled",
+    "font-awesome"
+  ],
+  "lib": {
+    "entryFile": "src/public-api.ts"
+  }
+}

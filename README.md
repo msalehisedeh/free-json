@@ -10,86 +10,9 @@ This library provides Angular 4 components that enables you to create / modify J
 
 **NOTE:** Starting with version 1.2.1 you need to import this library through @sedeh/free-json.
 
-[Live Demo](https://free-json.stackblitz.io)  | [Source code](https://github.com/msalehisedeh/free-json/tree/master/src/app) | [Comments/Requests](https://github.com/msalehisedeh/free-json/issues)
-
-## Dependencies
-
-```
-MODULE: 
-		FreeJsonModule
-
-DEPENDENCIES: 
-    "@sedeh/drag-enabled": "^2.1.0",
-    "font-awesome": "^4.7.0",
-```
-
-## Interfaces
-
-```
-export enum NodeType {
-  literal = 1,
-  pair = 2,
-  json = 3,
-  array = 4
-}
-export interface Node {
-  id: number,
-  name: string,
-  value: string,
-  parent: NodeType,
-  parentNode?: Node,
-  type: NodeType,
-  children: Node[],
-  expanded?: boolean,
-  isRoot?: boolean
-}
-export enum ActionType {
-  add = 1,
-  remove = 2,
-  move = 3,
-  modified = 4
-}
-```
-
-## Sample code
-
-```
-<free-json 
-	[root]="JSONtree"
-	[save]="save"
-    (onchange)="objectChanged($event)"
-    (onpublish)="getLatest($event)" ></free-json>	
-
-	........................
-
-myJSONtree = {
-	firstname: "masoud",
-	lastname: "salehi",
-	address: {
-	  street: "2345 blagio dr",
-	  city: "Los Angeles",
-	  contries: ["US","BS","CS"]
-	},
-	data: [
-	  [
-		"brakes"
-	  ]
-	]
-  }
-```
-
-| Version  |Description                                                                                                                                  |
-|----------|---------------------------------------------------------------------------------------------------------------------------------------------|
-|2.0.0     |updated to Angular 8.                                                                                                                        |
-|1.2.2     |updated dependencies to fix IE drag/drop problem.                                                                                            |
-|1.2.1     |updated dependencies.                                                                                                                        |
-|1.2.0     |It was brought to my attention that some users have trouble using my components in their angular 6 environment. Since I had only updated few dependencies when moved to Angular 6, I am thinking dependencies are causing issues. So, for this release, I am updating all dependencies to what Angular 6 applications are expecting to have. Please let me know if this is fixing or not fixing any issues you are facing. |
-|1.1.2     |rolling to angular 6+ after fixing the dependency issue.                                                                                     |
-|1.1.1     |Temporary roll-back to angular 5. I forgot to luck-down the dependencies for angular 5 before upgrading to angular 6. this will cause problem if you are still using angular 5.  |
-|1.1.0     |Updated libraries to become compatible with Angular 6+.                                                                                      |
-|1.0.0     |Compiled with AOT option and resolved issues.                                                                                                |
-|0.0.2     |updated dependencies.                                                                                                                        |
-|0.0.0     |Initial release.                                                                                                                             |
+[Live Demo](https://free-json.stackblitz.io)  | 
+[NPM](https://www.npmjs.com/package/@sedeh/free-json) | 
+[Comments/Requests](https://github.com/msalehisedeh/free-json/issues)
 
 
 Sample of code in Action:
