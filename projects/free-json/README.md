@@ -10,7 +10,7 @@ This library provides Angular 4 components that enables you to create / modify J
 
 **NOTE:** Starting with version 1.2.1 you need to import this library through @sedeh/free-json.
 
-[Live Demo](https://free-json.stackblitz.io)  | 
+[Live Demo](https://stackblitz.com/edit/free-json?file=package.json)  | 
 [NPM](https://www.npmjs.com/package/@sedeh/free-json) | 
 [Comments/Requests](https://github.com/msalehisedeh/free-json/issues)
 
