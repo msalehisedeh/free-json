@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+
 import { DragDropModule } from '@sedeh/drag-enabled';
 
 import { NodeManager } from './injectables/node-manager';

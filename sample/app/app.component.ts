@@ -1,25 +1,31 @@
 import { Component, NgZone } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 
-import { Reasoning, ReasonCreatorInterface } from '@sedeh/free-json';
-import { FreeJsonDialog } from './component/json-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DifferentiateComponent } from '@sedeh/differentiate';
+import { FreeJsonModule } from '@sedeh/free-json';
 import { AppService } from './app.service';
 
-class ReasonProvider implements ReasonCreatorInterface {
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
+
+import { Reasoning } from '@sedeh/free-json';
+import { FreeJsonDialog } from './component/json-dialog.component';
+
+export class ReasonProvider {
   public enabled = false;
-  constructor(private dialog: MatDialog){}
+  constructor(private dialog: MatDialog) {}
 
   provideReasoning(data: Reasoning): Observable<Reasoning> {
     if (this.enabled) {
       const subject = new Subject<Reasoning>();
       let dialogRef = this.dialog.open(FreeJsonDialog, {
-        data: {reason: '', code: ''},
+        data: { reason: '', code: '' },
       });
       dialogRef.afterClosed().subscribe((result: any) => {
         data.description = result.reason;
         data.code = result.code;
-        subject.next(data)
+        subject.next(data);
       });
       return subject;
     }
@@ -27,11 +33,19 @@ class ReasonProvider implements ReasonCreatorInterface {
   }
 }
 
-
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    MatDialogModule,
+    FreeJsonModule,
+    DifferentiateComponent,
+  ],
+  providers: [AppService],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'Free JSON';
@@ -49,25 +63,21 @@ export class AppComponent {
     {
       version: 0,
       tree: {
-        firstname: "masoud",
-        lastname: "salehi",
+        firstname: 'masoud',
+        lastname: 'salehi',
         address: {
-          street: "2345 blagio dr",
-          city: "Los Angeles",
-          contries: ["US","BS","CS"]
+          street: '2345 blagio dr',
+          city: 'Los Angeles',
+          contries: ['US', 'BS', 'CS'],
         },
-        data: [
-          [
-            "brakes"
-          ]
-        ]
-      }
-    }
+        data: [['brakes']],
+      },
+    },
   ];
 
   constructor(
     private dialog: MatDialog,
-    private appservice: AppService, 
+    private appservice: AppService,
     private zone: NgZone
   ) {
     this.selectedIndex = 0;
@@ -76,21 +86,21 @@ export class AppComponent {
     this.currentVersion = this.selectedIndex;
     this.rightJSONtree = this.tree;
     let newTree: any;
-     this.appservice.getFullQB().subscribe(
-       (response: any)=>{
-        this.zone.run(() => {
-          newTree = response;
-          this.dataSet.push({
-            version: this.counter++,
-            tree: newTree
-          });
+    this.appservice.getFullQB().subscribe((response: any) => {
+      this.zone.run(() => {
+        newTree = response;
+        this.dataSet.push({
+          version: this.counter++,
+          tree: newTree,
         });
-       }
-     );
+      });
+    });
   }
   saveChanges() {
     this.save = true;
-    setTimeout(()=>{this.save = false;},66);
+    setTimeout(() => {
+      this.save = false;
+    }, 66);
   }
 
   resetTo(event: any) {
@@ -100,15 +110,16 @@ export class AppComponent {
       this.lastVersion = this.currentVersion;
       this.currentVersion = this.selectedIndex;
       this.leftJSONtree = this.rightJSONtree;
-      this.rightJSONtree = this.tree;  
+      this.rightJSONtree = this.tree;
     });
   }
 
-  delete(){
+  delete() {
     if (this.dataSet.length > 1) {
       this.zone.run(() => {
         this.dataSet.splice(this.selectedIndex, 1);
-        this.selectedIndex = this.selectedIndex>0 ? this.selectedIndex - 1 : this.selectedIndex;
+        this.selectedIndex =
+          this.selectedIndex > 0 ? this.selectedIndex - 1 : this.selectedIndex;
         this.tree = this.dataSet[this.selectedIndex].tree;
         this.lastVersion = this.currentVersion;
         this.currentVersion = this.selectedIndex;
@@ -123,10 +134,10 @@ export class AppComponent {
       this.leftJSONtree = this.tree;
       this.rightJSONtree = event.data;
       this.decisionMakingResoning.push({
-        reason: event.reasoning.description, 
-        action: this.verbal(event.reasoning.action), 
+        reason: event.reasoning.description,
+        action: this.verbal(event.reasoning.action),
         code: event.reasoning.code,
-        time: (new Date()).toString()
+        time: new Date().toString(),
       });
     });
   }
@@ -134,13 +145,13 @@ export class AppComponent {
   getLatest(event: any) {
     this.dataSet.push({
       version: this.counter++,
-      tree: event
+      tree: event,
     });
-    
+
     this.zone.run(() => {
       // keep it in a list to allow reverting to any version.
       this.tree = event;
-      this.selectedIndex = this.dataSet.length - 1; 
+      this.selectedIndex = this.dataSet.length - 1;
       this.lastVersion = this.currentVersion;
       this.currentVersion = this.selectedIndex;
       this.leftJSONtree = this.rightJSONtree;
@@ -152,8 +163,8 @@ export class AppComponent {
       1: 'add',
       2: 'remove',
       3: 'move',
-      4: 'modified'
-    }
+      4: 'modified',
+    };
     return c[value];
   }
 }

@@ -18,9 +18,9 @@ export class FreeJsonSearch implements PipeTransform {
   transform(value: any) {
     var filteredText = this.manager.getFilteredText()
     if (this.isBlank(filteredText)) { 
-      return value
+      return value;
     } else {
-      return value.filter((node: any) => node.text.indexOf(filteredText) > -1);
+      return value?.filter((node: any) => node.text.indexOf(filteredText) > -1);
     }
   }
 }

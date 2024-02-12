@@ -1,5 +1,5 @@
 <ul>
-  <li  *ngFor="let child of transformedData | nodeSearch"
+  <li  *ngFor="let child of getTransformedData()"
         [dragEnabled]="dragEnabled(child)"
         [medium]="child"
         (onDragEnd)='onDragEnd($event)'
@@ -8,7 +8,7 @@
         class='tree-node'
         [id] = "child.id"
         [medium]="child"
-        [class.move]="!child.isRoot && (child.name.length || child.value.length)"
+        [class.move]="child && !child.isRoot && (child.name.length || child.value.length)"
         (click)="toggle($event, child)"
         (onDrop)='onDrop($event)'>
       <i  class='clickable fa fa-chevron-down' 
@@ -36,19 +36,19 @@
             (onchange)="labelValueChanged($event)"
             [node]="child"></json-label>
       <span class="edit-actions">
-      <i *ngIf="!child.isRoot"
+      <i *ngIf="child && !child.isRoot"
           class="clickable fa pull-right fa-times" 
           tabindex="0"
           title="Delete {{child.name}}"
           (click)='deleteNode($event, child)' 
           (keydown)='keydelete($event, child)'></i>
-      <i *ngIf="transformedData.length > 1 && !child.isRoot"
+      <i *ngIf="transformedData.length > 1 && child && !child.isRoot"
           class="clickable fa pull-right fa-angle-double-up" 
           tabindex="0"
           title="Move up {{child.name}}"
           (click)='moveNode($event, child, true)' 
           (keydown)='keymove($event, child, true)'></i>
-      <i *ngIf="transformedData.length > 1 && !child.isRoot"
+      <i *ngIf="transformedData.length > 1 && child && !child.isRoot"
           class="clickable fa pull-right fa-angle-double-down" 
           tabindex="0"
           title="Move down {{child.name}}"
@@ -60,7 +60,7 @@
           title="Add New Child"
           (keydown)='keyadd($event, child)'
           (click)='addNewNode($event, child)'></i>
-      <i *ngIf="!child.isRoot && child.parentNode.parentNode && (child.name.length || child.value.length)"
+      <i *ngIf="child && !child.isRoot && child.parentNode.parentNode && (child.name.length || child.value.length)"
           class="clickable fa pull-right fa-angle-double-left" 
           tabindex="0"
           title="Move to {{child.parentNode.parentNode.name}}"

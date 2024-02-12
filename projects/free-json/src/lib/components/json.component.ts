@@ -6,6 +6,7 @@ import { NodeManager } from '../injectables/node-manager';
 import { Node, NodeType, Reasoning, ActionType } from '../interfaces/node.interface';
 import { ReasonCreatorInterface } from '../interfaces/reason-creator.interface';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { FreeJsonSearch } from '../pipes/json-search';
 
 class BlankReasonProvider implements ReasonCreatorInterface {
   provideReasoning(data: Reasoning): Observable<Reasoning> {
@@ -69,7 +70,8 @@ export class FreeJsonComponent implements OnInit {
   expanded!:Boolean;
   
   constructor(
-	  private manager:NodeManager
+	  private manager:NodeManager,
+    private search: FreeJsonSearch
 	) {
 	  
   }
@@ -100,6 +102,9 @@ export class FreeJsonComponent implements OnInit {
       }
     });
     return array.length ? array : json;
+  }
+  getTransformedData() {
+    return this.search.transform(this.transformedData);
   }
 
   private transformNodeToInternalStruction(node: any, parent: Node) {
@@ -209,10 +214,10 @@ export class FreeJsonComponent implements OnInit {
   }
 
 	dragEnabled(medium: any) {
-		return !medium.isRoot && (medium.name.length || medium.value.length);
+		return medium && !medium.isRoot && (medium.name.length || medium.value.length);
 	}
 	dropEnabled(medium: any) {
-		return !medium.isRoot;
+		return medium && !medium.isRoot;
 	}
   onDragStart(event: any) {
     // this.manager.setSelectedNode(event.medium);

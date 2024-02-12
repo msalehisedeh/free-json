@@ -1,63 +1,42 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+  <h1>Welcome to {{ title }}!</h1>
 </div>
 <div class="resources">
-  <a href="https://www.npmjs.com/package/@sedeh/free-json"
-    >npm install &#64;sedeh/free-json</a
-  >
+  <a href="https://www.npmjs.com/package/@sedeh/free-json">npm install &#64;sedeh/free-json</a>
   <p>Tested On Safari, Chrome, Mozilla, and IE11 browsers.</p>
 </div>
-<fieldset class="pick-points">
-  <legend>Controls</legend>
-  <label for="selection">
-    <input 
-      id="selection" 
-      name="selection" 
-      type="checkbox" 
-      [checked]="logger.enabled "
-      (change)="logger.enabled  = !logger.enabled " />
-    Enable decision making logs
-  </label>
-</fieldset>
-<div class="controls">
-  <div class="wrapper">
-    <select *ngIf="dataSet.length > 1" (change)="resetTo($event)">
-      <option *ngFor="let x of dataSet;let i = index" [selected]="selectedIndex === i ? true : null" >
-        Version {{x.version}}
-      </option>
-    </select>
-    <button *ngIf="this.dataSet.length > 1" (click)="delete()" class="bt bt-primary">Delete Selected Version</button>
-  </div>  
-  <free-json 
-    [root]="tree" 
-    [save]="save"
-    [reasonLogger]="logger"
-    (onchange)="objectChanged($event)"
-    (onpublish)="getLatest($event)" >
-  </free-json>
 
-<button (click)="saveChanges()" class="saver bt bt-primary">Save Changes</button>
-</div>
-<div class="wrapper">
-  <div class="labels">
-    <span>Last version: {{ lastVersion }}</span>
-    <span>Current version: {{ currentVersion }}</span>
-  </div>    
-  <differentiate 
-    [leftSideObject]="leftJSONtree" 
-    [rightSideObject]="rightJSONtree"></differentiate>
-  
-  <div class="json-view">
-    <fieldset class="pick-points">
-      <legend>JSON</legend>
-      <div  [innerHTML]="tree | json"></div>
-    </fieldset>
-    <fieldset *ngIf="decisionMakingResoning" class="pick-points">
-      <legend>Reson for change report</legend>
-      <div  [innerHTML]="decisionMakingResoning | json"></div>  
-    </fieldset>
-  </div>  
-</div>
+<free-json
+  [root]="tree"
+  [save]="save"
+  [reasonLogger]="logger"
+  (onchange)="objectChanged($event)"
+  (onpublish)="getLatest($event)"
+></free-json>
+
+<button (click)="saveChanges()" class="bt bt-primary">Save Changes</button>
+
+<select *ngIf="dataSet.length > 1" (change)="resetTo($event)">
+  <option
+    *ngFor="let x of dataSet; let i = index"
+    [selected]="selectedIndex === i ? true : null"
+  >
+    Version {{ x.version }}
+  </option>
+</select>
+<button
+  *ngIf="this.dataSet.length > 1"
+  (click)="delete()"
+  class="bt bt-primary"
+>
+  Delete Selected Version
+</button>
+
+<differentiate
+  [leftSideObject]="leftJSONtree"
+  [rightSideObject]="rightJSONtree"
+></differentiate>
+
+<div class="json-view" [innerHTML]="tree | json"></div>
+<div class="json-view" [innerHTML]="decisionMakingResoning | json"></div>

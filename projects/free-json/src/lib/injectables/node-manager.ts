@@ -6,9 +6,6 @@ import { Node, NodeType } from './../interfaces/node.interface';
 export class NodeManager {
   filteredText!: String;
 
-  constructor() {
-  }
-
   generateNodeId() {
     const min = 1;
     const max = 10000
